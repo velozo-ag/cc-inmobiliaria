@@ -167,8 +167,11 @@ export default function LocationMap3D({
       bounds.extend([SITE_CONFIG.officeCoords.lng, SITE_CONFIG.officeCoords.lat]);
     }
 
+    const mapWidth = containerRef.current?.clientWidth || 800;
+    const pad = mapWidth < 500 ? 34 : 68;
+
     map.fitBounds(bounds, {
-      padding: { top: 68, right: 68, bottom: 68, left: 68 },
+      padding: { top: pad, right: pad, bottom: pad, left: pad },
       maxZoom: 15.2,
       pitch: pitchVal,
       bearing: pitchVal > 0 ? -16 : 0,
@@ -300,11 +303,16 @@ export default function LocationMap3D({
             },
             () => {
               if (!map) return;
+              if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
               const point = map.project([prop.mapCoords.lng, prop.mapCoords.lat]);
               const rect = container.getBoundingClientRect();
-              const clampedX = Math.min(Math.max(point.x, 128), Math.max(128, rect.width - 128));
-              const clampedY = Math.max(point.y - 36, 170);
-              setHoveredCard({ prop, x: clampedX, y: clampedY });
+              const halfW = 128;
+              const clampedX = Math.min(Math.max(point.x, halfW), Math.max(halfW, rect.width - halfW));
+              const placeBelow = point.y < 265;
+              const topY = placeBelow
+                ? Math.min(point.y + 12, Math.max(12, rect.height - 255))
+                : point.y - 38;
+              setHoveredCard({ prop, x: clampedX, y: topY, placeBelow });
             },
             () => {
               setHoveredCard((curr) => (curr?.prop?.slug === prop.slug ? null : curr));
@@ -438,7 +446,9 @@ export default function LocationMap3D({
 
   const hoverPreviewCard = hoveredCard && (
     <div
-      className="pointer-events-none absolute z-40 w-60 -translate-x-1/2 -translate-y-full bg-[#F4F1EA] border border-[#121312] shadow-[0_14px_30px_rgba(18,19,18,0.24)] overflow-hidden"
+      className={`hidden md:block pointer-events-none absolute z-40 w-60 -translate-x-1/2 ${
+        hoveredCard.placeBelow ? "translate-y-0" : "-translate-y-full"
+      } bg-[#F4F1EA] border border-[#121312] shadow-[0_14px_30px_rgba(18,19,18,0.24)] overflow-hidden`}
       style={{ left: hoveredCard.x, top: hoveredCard.y }}
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#ECE8DF]">
@@ -476,7 +486,7 @@ export default function LocationMap3D({
 
   return (
     <div ref={wrapperRef} className="border border-[#D5D0C5] bg-white">
-      <div className="px-5 py-4 border-b border-[#D5D0C5] flex flex-wrap items-center justify-between gap-3">
+      <div className="px-3.5 py-3 sm:px-5 sm:py-4 border-b border-[#D5D0C5] flex flex-wrap items-center justify-between gap-2.5 sm:gap-3">
         {isSingleMode ? (
           <p className="inline-flex items-center gap-2 text-xs font-medium text-[#121312]">
             <PiMapPinLight className="w-4 h-4 text-[var(--brand-accent)] shrink-0" />
@@ -583,7 +593,7 @@ export default function LocationMap3D({
       </div>
 
       {isSingleMode ? (
-        <div className="relative w-full h-[420px] sm:h-[460px] bg-[#ECE8DF] overflow-hidden">
+        <div className="relative w-full h-[340px] sm:h-[420px] lg:h-[460px] bg-[#ECE8DF] overflow-hidden">
           {mapError ? (
             <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center space-y-3">
               <p className="text-sm text-[#121312]">
@@ -610,7 +620,7 @@ export default function LocationMap3D({
         <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#D5D0C5]">
           <div
             className={`lg:col-span-8 relative w-full bg-[#ECE8DF] overflow-hidden ${
-              tall ? "h-[500px] lg:h-[600px]" : "h-[430px] sm:h-[480px]"
+              tall ? "h-[380px] sm:h-[480px] lg:h-[600px]" : "h-[340px] sm:h-[430px] lg:h-[480px]"
             }`}
           >
             {mapError ? (
@@ -636,7 +646,7 @@ export default function LocationMap3D({
             )}
           </div>
 
-          <div className="lg:col-span-4 p-5 md:p-6 flex flex-col justify-between gap-5 bg-[#F4F1EA]/45">
+          <div className="lg:col-span-4 p-4 sm:p-5 md:p-6 flex flex-col justify-between gap-5 bg-[#F4F1EA]/45">
             {selectedProperty ? (
               <div className="space-y-4">
                 <Link
@@ -659,7 +669,7 @@ export default function LocationMap3D({
                   </span>
                 </Link>
 
-                <div className="flex items-center justify-between border-b border-[#D5D0C5] pb-2 text-xs font-mono">
+                <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-[#D5D0C5] pb-2 text-xs font-mono">
                   <span className="text-[var(--brand-accent)] font-semibold">
                     {selectedProperty.code} · {selectedProperty.neighborhood}
                   </span>

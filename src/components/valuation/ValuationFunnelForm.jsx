@@ -58,17 +58,17 @@ export default function ValuationFunnelForm() {
   };
 
   return (
-    <div className="border border-[#D5D0C5] bg-white p-7 md:p-9 space-y-6">
-      <div className="flex items-center justify-between border-b border-[#D5D0C5] pb-4">
-        <div className="space-y-1">
+    <div className="border border-[#D5D0C5] bg-white p-5 sm:p-7 md:p-9 space-y-6">
+      <div className="flex flex-wrap items-start justify-between gap-2 border-b border-[#D5D0C5] pb-4">
+        <div className="space-y-1 min-w-0">
           <span className="text-xs font-mono uppercase tracking-wider text-[var(--brand-accent)]">
             Tasación MP 20 en 24 horas
           </span>
-          <h2 className="text-2xl font-serif font-medium text-[#121312]">
+          <h2 className="text-xl sm:text-2xl font-serif font-medium text-[#121312]">
             {step === 1 ? "Ubicación de tu propiedad" : "Cómo preferís recibir tu informe"}
           </h2>
         </div>
-        <span className="font-mono text-xs text-[#5A5852]">Paso {step} de 2</span>
+        <span className="font-mono text-xs text-[#5A5852] shrink-0">Paso {step} de 2</span>
       </div>
 
       {step === 1 ? (
@@ -166,13 +166,13 @@ export default function ValuationFunnelForm() {
 
           <div className="space-y-2">
             <span className="block text-xs font-medium text-[#5A5852]">Canal de respuesta preferido</span>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {CONTACT_CHANNELS.map((channel) => (
                 <button
                   key={channel}
                   type="button"
                   onClick={() => setPreferredChannel(channel)}
-                  className={`py-2.5 px-2 text-xs font-medium border transition-colors cursor-pointer ${
+                  className={`py-2.5 px-3 text-xs font-medium border transition-colors cursor-pointer ${
                     preferredChannel === channel
                       ? "bg-[#121312] text-white border-[#121312]"
                       : "bg-[#F4F1EA]/60 text-[#121312] border-[#D5D0C5] hover:border-[#121312]"

@@ -37,8 +37,8 @@ export default function Footer() {
           <p className="text-sm text-[#5A5852] max-w-sm leading-relaxed">
             {SITE_CONFIG.brandTagline}. Atención directa en {SITE_CONFIG.locationLabel}.
           </p>
-          <div className="pt-1 inline-flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-none bg-white border border-[#D5D0C5]">
-            <PiStarFill className="w-3.5 h-3.5 text-amber-500" />
+          <div className="pt-1 inline-flex flex-wrap items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-none bg-white border border-[#D5D0C5] max-w-full">
+            <PiStarFill className="w-3.5 h-3.5 text-amber-500 shrink-0" />
             <span className="text-[#121312]">
               {SITE_CONFIG.googleRating} en Google Maps ({reviewsLabel})
             </span>
@@ -108,7 +108,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#5A5852]">
+      <div className="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-[#5A5852]">
         <span>
           {SITE_CONFIG.brandName}. Canal oficial de comercialización y tasaciones en Corrientes.
         </span>

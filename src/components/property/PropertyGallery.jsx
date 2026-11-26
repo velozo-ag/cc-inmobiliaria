@@ -53,6 +53,8 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
 
   useEffect(() => {
     if (!lightboxMode) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -65,19 +67,22 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [lightboxMode, images.length]);
 
   if (images.length === 0) return null;
 
   return (
     <>
-      <div className="mb-14 space-y-2.5">
+      <div className="mb-10 sm:mb-14 space-y-2.5">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:items-stretch">
           <div className="lg:col-span-8 relative aspect-[16/10] overflow-hidden bg-[#ECE8DF] group">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute top-4 -left-9 z-20 w-36 py-1 bg-[#A80038] text-white text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-center -rotate-45 shadow-sm"
+              className="pointer-events-none absolute top-3.5 -left-10 sm:top-4 sm:-left-9 z-20 w-36 py-1 bg-[#A80038] text-white text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-center -rotate-45 shadow-sm"
             >
               Venta
             </div>
@@ -117,7 +122,7 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
                   type="button"
                   onClick={() => scrollToSlide(activeIndex - 1)}
                   aria-label="Foto anterior"
-                  className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-[#121312]/70 hover:bg-[#121312] text-white border border-white/20 opacity-90 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity cursor-pointer"
+                  className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 bg-[#121312]/70 hover:bg-[#121312] text-white border border-white/20 opacity-90 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity cursor-pointer"
                 >
                   <PiCaretLeftLight className="w-4 h-4" />
                 </button>
@@ -125,21 +130,27 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
                   type="button"
                   onClick={() => scrollToSlide(activeIndex + 1)}
                   aria-label="Foto siguiente"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-[#121312]/70 hover:bg-[#121312] text-white border border-white/20 opacity-90 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity cursor-pointer"
+                  className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 bg-[#121312]/70 hover:bg-[#121312] text-white border border-white/20 opacity-90 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity cursor-pointer"
                 >
                   <PiCaretRightLight className="w-4 h-4" />
                 </button>
               </>
             )}
 
-            <span className="pointer-events-none absolute bottom-3 left-3 z-20 px-2.5 py-1 bg-[#121312]/75 text-white font-mono text-[11px] tabular-nums">
+            <span className="pointer-events-none absolute bottom-2.5 left-2.5 sm:bottom-3 sm:left-3 z-20 px-2.5 py-1 bg-[#121312]/75 text-white font-mono text-[11px] tabular-nums">
               {activeIndex + 1} / {images.length}
             </span>
           </div>
 
           <div className="lg:col-span-4 lg:relative">
             <div className="lg:absolute lg:inset-0 flex flex-col gap-3">
-              <div className="grid grid-cols-2 grid-rows-2 gap-2.5 flex-[3] min-h-[210px] lg:min-h-0">
+              <div
+                className={`grid grid-cols-2 gap-2.5 lg:flex-[3] lg:min-h-0 ${
+                  visibleThumbs.length <= 2
+                    ? "grid-rows-1 h-[120px] sm:h-[160px] lg:h-auto"
+                    : "grid-rows-2 h-[210px] sm:h-[260px] lg:h-auto"
+                }`}
+              >
                 {visibleThumbs.map((imgUrl, idx) => {
                   const isLastWithOverflow = idx === 3 && overflowCount > 0;
                   const isFullSpanThird = visibleThumbs.length === 3 && idx === 2;
@@ -193,7 +204,7 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
                   type="button"
                   onClick={() => setLightboxMode("floorplan")}
                   aria-label={`Abrir croquis interactivo de ${title}`}
-                  className="flex-[2] min-h-[145px] lg:min-h-0 w-full overflow-hidden rounded-none border border-[#D5D0C5] hover:border-[#121312] transition-colors cursor-pointer bg-[#F4F1EA]"
+                  className="h-[175px] sm:h-[200px] lg:h-auto lg:flex-[2] lg:min-h-0 w-full overflow-hidden rounded-none border border-[#D5D0C5] hover:border-[#121312] transition-colors cursor-pointer bg-[#F4F1EA]"
                 >
                   <PropertyFloorplanPreview item={item} />
                 </button>
@@ -202,9 +213,9 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#5A5852]">
-          <span>Deslizá o usá las flechas para recorrer ({images.length} fotografías)</span>
-          <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-xs font-mono text-[#5A5852]">
+          <span>Deslizá o usá las flechas ({images.length} fotos)</span>
+          <div className="flex flex-wrap items-center gap-4">
             {hasFloorplan && (
               <button
                 type="button"
@@ -236,14 +247,17 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
               ? `Croquis interactivo de ${title}`
               : `Galería de ${title}`
           }
-          className="fixed inset-0 z-50 bg-[#121312]/72 backdrop-blur-md text-white flex flex-col justify-between p-4 md:p-8 overflow-y-auto"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setLightboxMode(null);
+          }}
+          className="fixed inset-0 z-50 bg-[#121312]/78 backdrop-blur-md text-white flex flex-col p-3 sm:p-6 md:p-8 overflow-y-auto"
         >
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-4 shrink-0">
-            <div className="flex items-center gap-3 text-xs font-mono">
+          <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4 border-b border-white/15 pb-3 sm:pb-4 shrink-0">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono min-w-0">
               <button
                 type="button"
                 onClick={() => setLightboxMode("photo")}
-                className={`px-3 py-1.5 border transition-colors cursor-pointer ${
+                className={`px-2.5 sm:px-3 py-1.5 border transition-colors cursor-pointer whitespace-nowrap ${
                   lightboxMode === "photo"
                     ? "bg-white text-[#121312] border-white font-semibold"
                     : "border-white/25 text-white/85 hover:text-white"
@@ -255,31 +269,31 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
                 <button
                   type="button"
                   onClick={() => setLightboxMode("floorplan")}
-                  className={`px-3 py-1.5 border transition-colors cursor-pointer ${
+                  className={`px-2.5 sm:px-3 py-1.5 border transition-colors cursor-pointer whitespace-nowrap ${
                     lightboxMode === "floorplan"
                       ? "bg-white text-[#121312] border-white font-semibold"
                       : "border-white/25 text-white/85 hover:text-white"
                   }`}
                 >
-                  Croquis interactivo
+                  Croquis
                 </button>
               )}
-              <span className="hidden md:inline text-white/75">{title}</span>
+              <span className="hidden lg:inline text-white/75 truncate max-w-md">{title}</span>
             </div>
 
             <button
               type="button"
               onClick={() => setLightboxMode(null)}
               aria-label="Cerrar visor"
-              className="p-2 border border-white/25 hover:bg-white hover:text-[#121312] transition-colors cursor-pointer"
+              className="p-2 border border-white/25 hover:bg-white hover:text-[#121312] transition-colors cursor-pointer shrink-0"
             >
               <PiXLight className="w-5 h-5" />
             </button>
           </div>
 
           {lightboxMode === "photo" ? (
-            <div className="relative flex-1 my-6 flex items-center justify-center min-h-[320px]">
-              <div className="relative w-full max-w-5xl aspect-[16/10]">
+            <div className="relative flex-1 my-auto py-4 flex items-center justify-center min-h-[260px]">
+              <div className="relative w-full max-w-5xl h-[62dvh] sm:h-[74dvh]">
                 <Image
                   src={activeImage}
                   alt={`${title} vista ampliada ${activeIndex + 1}`}
@@ -298,7 +312,7 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
                       setActiveIndex((prev) => (prev - 1 + images.length) % images.length)
                     }
                     aria-label="Imagen anterior"
-                    className="absolute left-0 md:left-4 p-3 bg-[#121312]/80 border border-white/25 hover:bg-white hover:text-[#121312] transition-colors cursor-pointer"
+                    className="absolute left-0 sm:left-3 p-2.5 sm:p-3 bg-[#121312]/80 border border-white/25 hover:bg-white hover:text-[#121312] transition-colors cursor-pointer"
                   >
                     <PiCaretLeftLight className="w-5 h-5" />
                   </button>
@@ -306,7 +320,7 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
                     type="button"
                     onClick={() => setActiveIndex((prev) => (prev + 1) % images.length)}
                     aria-label="Siguiente imagen"
-                    className="absolute right-0 md:right-4 p-3 bg-[#121312]/80 border border-white/25 hover:bg-white hover:text-[#121312] transition-colors cursor-pointer"
+                    className="absolute right-0 sm:right-3 p-2.5 sm:p-3 bg-[#121312]/80 border border-white/25 hover:bg-white hover:text-[#121312] transition-colors cursor-pointer"
                   >
                     <PiCaretRightLight className="w-5 h-5" />
                   </button>
@@ -314,7 +328,7 @@ export default function PropertyGallery({ item, title, gallery = [], primaryImag
               )}
             </div>
           ) : (
-            <div className="flex-1 my-6 flex items-center justify-center">
+            <div className="w-full my-auto py-3 sm:py-5 flex items-start justify-center">
               <PropertyFloorplan
                 item={item}
                 onOpenPhoto={(idx) => {

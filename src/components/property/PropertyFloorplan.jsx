@@ -112,28 +112,29 @@ function BlueprintSvg({
 
   return (
     <svg
-      viewBox="0 0 320 220"
-      className="w-full h-full overflow-visible select-none"
+      viewBox="0 -18 320 246"
+      preserveAspectRatio="xMidYMid meet"
+      className="w-full h-full select-none"
       role="img"
       aria-label="Croquis esquemático de distribución de ambientes"
     >
       {showSunlight && !compact && (
         <g opacity="0.7" pointerEvents="none">
           <path
-            d="M 18 14 Q 160 -8 302 14"
+            d="M 18 10 Q 160 -10 302 10"
             fill="none"
             stroke="#A80038"
             strokeWidth="1.2"
             strokeDasharray="4 4"
           />
-          <g transform={`translate(160, 12) rotate(${sunAngle + 90})`}>
+          <g transform={`translate(160, 8) rotate(${sunAngle + 90})`}>
             <circle cx="0" cy="-6" r="4" fill="#A80038" />
             <line x1="0" y1="0" x2="0" y2="14" stroke="#A80038" strokeWidth="1.2" />
             <polyline points="-3,10 0,14 3,10" fill="none" stroke="#A80038" strokeWidth="1.2" />
           </g>
           <text
             x="160"
-            y="6"
+            y="-4"
             textAnchor="middle"
             fontSize="7"
             fontFamily="monospace"
@@ -240,7 +241,7 @@ export function PropertyFloorplanPreview({ item }) {
         <span>N {item.floorplan.orientation}</span>
       </div>
 
-      <div className="flex-1 min-h-0 flex items-center justify-center py-0.5">
+      <div className="flex-1 min-h-0 overflow-hidden flex items-center justify-center py-0.5">
         <BlueprintSvg rooms={rooms} compact showFurniture showZones />
       </div>
 
@@ -281,17 +282,17 @@ export default function PropertyFloorplan({ item, onOpenPhoto }) {
 
   return (
     <div className="bg-[#F4F1EA] border border-[#D5D0C5] w-full max-w-5xl mx-auto text-[#121312]">
-      <div className="px-5 py-4 border-b border-[#D5D0C5] flex flex-wrap items-center justify-between gap-3 bg-[#ECE8DF]/75">
-        <div className="flex flex-wrap items-center gap-3 text-xs text-[#5A5852]">
+      <div className="px-3.5 py-3 sm:px-5 sm:py-4 border-b border-[#D5D0C5] flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 bg-[#ECE8DF]/75">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[11px] sm:text-xs text-[#5A5852]">
           <span className="font-semibold text-[#121312]">{floorplan.scaleLabel}</span>
           <span className="text-[#D5D0C5]">|</span>
           <span className="inline-flex items-center gap-1 font-mono">
-            <PiCompassLight className="w-3.5 h-3.5 text-[var(--brand-accent)]" />
+            <PiCompassLight className="w-3.5 h-3.5 text-[var(--brand-accent)] shrink-0" />
             <span>Norte ref. {floorplan.orientation}</span>
           </span>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 text-xs">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs">
           <button
             type="button"
             onClick={() => setShowFurniture((prev) => !prev)}
@@ -301,7 +302,7 @@ export default function PropertyFloorplan({ item, onOpenPhoto }) {
                 : "bg-[#F4F1EA] text-[#5A5852] border-[#D5D0C5] hover:text-[#121312]"
             }`}
           >
-            <PiArmchairLight className="w-3.5 h-3.5" />
+            <PiArmchairLight className="w-3.5 h-3.5 shrink-0" />
             <span>Mobiliario</span>
           </button>
 
@@ -314,7 +315,7 @@ export default function PropertyFloorplan({ item, onOpenPhoto }) {
                 : "bg-[#F4F1EA] text-[#5A5852] border-[#D5D0C5] hover:text-[#121312]"
             }`}
           >
-            <PiPaletteLight className="w-3.5 h-3.5" />
+            <PiPaletteLight className="w-3.5 h-3.5 shrink-0" />
             <span>Zonas</span>
           </button>
 
@@ -327,7 +328,7 @@ export default function PropertyFloorplan({ item, onOpenPhoto }) {
                 : "bg-[#F4F1EA] text-[#5A5852] border-[#D5D0C5] hover:text-[#121312]"
             }`}
           >
-            <PiSunLight className="w-3.5 h-3.5" />
+            <PiSunLight className="w-3.5 h-3.5 shrink-0" />
             <span>Luz natural</span>
           </button>
 
@@ -360,28 +361,33 @@ export default function PropertyFloorplan({ item, onOpenPhoto }) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#D5D0C5]">
-        <div className="lg:col-span-8 relative min-h-[360px] sm:min-h-[450px] bg-[#F4F1EA] overflow-hidden flex items-center justify-center p-6 sm:p-10">
-          <div
-            className="relative w-full max-w-[540px] aspect-[32/22] transition-transform duration-300 ease-editorial"
-            style={{ transform: `scale(${zoom})` }}
-          >
-            <BlueprintSvg
-              rooms={rooms}
-              activeRoomId={activeRoom?.id}
-              onSelect={setActiveRoomId}
-              showFurniture={showFurniture}
-              showZones={showZones}
-              showSunlight={showSunlight}
-              orientation={floorplan.orientation}
-            />
+        <div className="lg:col-span-8 flex flex-col bg-[#F4F1EA]">
+          <div className="flex-1 min-h-[260px] sm:min-h-[380px] overflow-auto flex items-center justify-center p-4 sm:p-8">
+            <div
+              className="relative aspect-[320/246] mx-auto shrink-0 transition-[width,max-width] duration-300 ease-editorial"
+              style={{
+                width: `${Math.round(zoom * 100)}%`,
+                maxWidth: `${Math.round(540 * zoom)}px`,
+              }}
+            >
+              <BlueprintSvg
+                rooms={rooms}
+                activeRoomId={activeRoom?.id}
+                onSelect={setActiveRoomId}
+                showFurniture={showFurniture}
+                showZones={showZones}
+                showSunlight={showSunlight}
+                orientation={floorplan.orientation}
+              />
+            </div>
           </div>
 
-          <p className="absolute bottom-3 left-5 right-5 text-[10px] font-mono text-[#5A5852]">
+          <p className="px-4 py-2.5 border-t border-[#D5D0C5] bg-[#ECE8DF]/40 text-[10px] font-mono text-[#5A5852] leading-relaxed">
             Croquis esquemático orientativo sin escala métrica definitiva. Seleccioná un ambiente para ver su foto y consultar medidas.
           </p>
         </div>
 
-        <div className="lg:col-span-4 p-5 md:p-6 flex flex-col justify-between gap-5 bg-[#ECE8DF]/55">
+        <div className="lg:col-span-4 p-4 sm:p-5 md:p-6 flex flex-col justify-between gap-5 bg-[#ECE8DF]/55">
           <div className="space-y-4">
             {activePhoto && (
               <div className="space-y-2">
@@ -392,7 +398,7 @@ export default function PropertyFloorplan({ item, onOpenPhoto }) {
                     fill
                     quality={80}
                     className="object-cover"
-                    sizes="320px"
+                    sizes="(max-width: 1024px) 100vw, 320px"
                   />
                   {onOpenPhoto && (
                     <button
@@ -418,7 +424,7 @@ export default function PropertyFloorplan({ item, onOpenPhoto }) {
               </div>
             )}
 
-            <div className="divide-y divide-[#D5D0C5] border-y border-[#D5D0C5] max-h-44 overflow-y-auto">
+            <div className="divide-y divide-[#D5D0C5] border-y border-[#D5D0C5] max-h-40 sm:max-h-44 overflow-y-auto">
               {rooms.map((room) => {
                 const active = activeRoom?.id === room.id;
                 return (
@@ -426,15 +432,15 @@ export default function PropertyFloorplan({ item, onOpenPhoto }) {
                     key={room.id}
                     type="button"
                     onClick={() => setActiveRoomId(room.id)}
-                    className={`w-full py-2 px-2 flex items-center justify-between text-left text-xs transition-colors cursor-pointer ${
+                    className={`w-full py-2 px-2 flex items-center justify-between gap-2 text-left text-xs transition-colors cursor-pointer ${
                       active
                         ? "bg-[#121312] text-white font-semibold"
                         : "text-[#121312] hover:bg-[#F4F1EA]"
                     }`}
                   >
-                    <span>{room.label}</span>
+                    <span className="truncate">{room.label}</span>
                     <span
-                      className={`font-mono text-[10px] ${
+                      className={`font-mono text-[10px] shrink-0 ${
                         active ? "text-white/80" : "text-[#5A5852]"
                       }`}
                     >
@@ -451,10 +457,10 @@ export default function PropertyFloorplan({ item, onOpenPhoto }) {
               href={roomInquiryUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-none bg-[var(--brand-accent)] hover:bg-[var(--brand-accent-hover)] text-white text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 transition-colors"
+              className="w-full py-3 px-4 rounded-none bg-[var(--brand-accent)] hover:bg-[var(--brand-accent-hover)] text-white text-xs font-semibold uppercase tracking-wider text-center inline-flex items-center justify-center gap-2 transition-colors"
             >
-              <PiWhatsappLogoLight className="w-4 h-4" />
-              <span>Consultar por {activeRoom.label}</span>
+              <PiWhatsappLogoLight className="w-4 h-4 shrink-0" />
+              <span className="truncate">Consultar por {activeRoom.label}</span>
             </a>
             <p className="text-[11px] text-[#5A5852] leading-relaxed">
               Planos acotados conforme a escritura disponibles en {SITE_CONFIG.addressDisplay}.

@@ -26,8 +26,8 @@ export default function SellPage() {
       <Navbar />
 
       <main id="contenido-principal" className="flex-1">
-        <section className="max-w-7xl mx-auto px-4 py-14 lg:py-20 border-b border-[#D5D0C5]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <section className="max-w-7xl mx-auto px-4 py-10 sm:py-14 lg:py-20 border-b border-[#D5D0C5]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
             <div className="lg:col-span-6 space-y-6">
               <div className="flex items-center gap-2 text-xs font-mono text-[#5A5852]">
                 <Link href="/" className="hover:text-[#121312] hover:underline">
@@ -37,7 +37,7 @@ export default function SellPage() {
                 <span className="text-[#121312]">Tasaciones y Venta</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-tight leading-[1.08] text-balance">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-medium tracking-tight leading-[1.08] text-balance">
                 Vendé tu propiedad en Corrientes con criterio real de cierre.
               </h1>
 
@@ -85,7 +85,7 @@ export default function SellPage() {
           </div>
         </section>
 
-        <section className="bg-[#ECE8DF] border-b border-[#D5D0C5] py-20 lg:py-24 px-4">
+        <section className="bg-[#ECE8DF] border-b border-[#D5D0C5] py-14 sm:py-20 lg:py-24 px-4">
           <div className="max-w-7xl mx-auto space-y-12">
             <div className="space-y-3 max-w-2xl">
               <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-[var(--brand-accent)]">
@@ -112,7 +112,7 @@ export default function SellPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 py-20 lg:py-24 space-y-10">
+        <section className="max-w-7xl mx-auto px-4 py-14 sm:py-20 lg:py-24 space-y-10">
           <div className="space-y-2 max-w-2xl">
             <h2 className="text-2xl md:text-4xl font-serif font-medium tracking-tight">
               Preguntas frecuentes de propietarios

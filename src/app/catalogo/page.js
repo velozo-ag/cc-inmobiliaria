@@ -33,7 +33,7 @@ export default async function CatalogPage({ searchParams }) {
     <div className="min-h-[100dvh] flex flex-col bg-[#F4F1EA] text-[#121312]">
       <Navbar />
 
-      <section className="bg-[#ECE8DF] border-b border-[#D5D0C5] py-12 md:py-16 px-4">
+      <section className="bg-[#ECE8DF] border-b border-[#D5D0C5] py-10 md:py-16 px-4">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
             <div className="flex items-center gap-2 text-xs font-mono text-[#5A5852]">

@@ -44,13 +44,13 @@ export default function PropertyInquiryForm({ item }) {
     <aside className="lg:col-span-5 lg:sticky lg:top-28">
       <form
         onSubmit={handleSubmit}
-        className="p-7 md:p-8 rounded-none border border-[#D5D0C5] bg-white space-y-5"
+        className="p-5 sm:p-7 md:p-8 rounded-none border border-[#D5D0C5] bg-white space-y-5"
       >
         <div className="pb-4 border-b border-[#D5D0C5] space-y-1">
           <span className="text-xs font-mono uppercase tracking-wider text-[var(--brand-accent)]">
             {SITE_CONFIG.brandTagline}
           </span>
-          <h2 className="text-2xl font-serif font-medium tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-serif font-medium tracking-tight">
             {bookingFormConfig.panelTitle}
           </h2>
           <p className="text-xs text-[#5A5852]">{bookingFormConfig.panelSubtitle}</p>
@@ -58,11 +58,15 @@ export default function PropertyInquiryForm({ item }) {
 
         <div className="space-y-1.5">
           <span className="block text-xs font-medium text-[#5A5852]">Modalidad de recorrido</span>
-          <div className="grid grid-cols-2 gap-2" role="group" aria-label="Modalidad de recorrido">
+          <div
+            className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-2"
+            role="group"
+            aria-label="Modalidad de recorrido"
+          >
             <button
               type="button"
               onClick={() => setVisitMode("Presencial")}
-              className={`py-2.5 px-3 text-xs font-medium border inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+              className={`py-2.5 px-2.5 sm:px-3 text-xs font-medium border inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                 visitMode === "Presencial"
                   ? "bg-[#121312] text-white border-[#121312]"
                   : "bg-[#F4F1EA]/60 text-[#121312] border-[#D5D0C5] hover:border-[#121312]"
@@ -74,7 +78,7 @@ export default function PropertyInquiryForm({ item }) {
             <button
               type="button"
               onClick={() => setVisitMode("Videollamada en vivo")}
-              className={`py-2.5 px-3 text-xs font-medium border inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+              className={`py-2.5 px-2.5 sm:px-3 text-xs font-medium border inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                 visitMode === "Videollamada en vivo"
                   ? "bg-[#121312] text-white border-[#121312]"
                   : "bg-[#F4F1EA]/60 text-[#121312] border-[#D5D0C5] hover:border-[#121312]"
@@ -99,29 +103,29 @@ export default function PropertyInquiryForm({ item }) {
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
               placeholder="Ej: Juan Pérez"
-              className="w-full h-11 pl-10 pr-3.5 rounded-none border border-[#D5D0C5] bg-transparent text-sm text-[#121312] placeholder:text-[#5A5852]/70 focus:outline-none focus:border-[var(--brand-accent)]"
+              className="w-full min-w-0 h-11 pl-10 pr-3.5 rounded-none border border-[#D5D0C5] bg-transparent text-sm text-[#121312] placeholder:text-[#5A5852]/70 focus:outline-none focus:border-[var(--brand-accent)]"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 min-w-0">
             <label htmlFor="inquiry-date" className="block text-xs font-mono text-[#5A5852]">
               {bookingFormConfig.date1Label}
             </label>
             <div className="relative">
-              <PiCalendarBlankLight className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#5A5852]" />
+              <PiCalendarBlankLight className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#5A5852] pointer-events-none" />
               <input
                 id="inquiry-date"
                 type="date"
                 value={date1}
                 onChange={(e) => setDate1(e.target.value)}
-                className="w-full h-11 pl-10 pr-3 rounded-none border border-[#D5D0C5] bg-transparent text-xs font-mono text-[#121312] focus:outline-none focus:border-[var(--brand-accent)]"
+                className="w-full min-w-0 appearance-none h-11 pl-10 pr-3 rounded-none border border-[#D5D0C5] bg-transparent text-xs font-mono text-[#121312] focus:outline-none focus:border-[var(--brand-accent)]"
               />
             </div>
           </div>
 
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 min-w-0">
             <label htmlFor="inquiry-time" className="block text-xs font-mono text-[#5A5852]">
               {bookingFormConfig.date2Label}
             </label>
@@ -131,7 +135,7 @@ export default function PropertyInquiryForm({ item }) {
               placeholder="Ej: 17:00 hs"
               value={date2}
               onChange={(e) => setDate2(e.target.value)}
-              className="w-full h-11 px-3.5 rounded-none border border-[#D5D0C5] bg-transparent text-xs font-mono text-[#121312] placeholder:text-[#5A5852]/70 focus:outline-none focus:border-[var(--brand-accent)]"
+              className="w-full min-w-0 h-11 px-3.5 rounded-none border border-[#D5D0C5] bg-transparent text-xs font-mono text-[#121312] placeholder:text-[#5A5852]/70 focus:outline-none focus:border-[var(--brand-accent)]"
             />
           </div>
         </div>

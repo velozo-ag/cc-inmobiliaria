@@ -8,6 +8,7 @@ import {
   PiRulerLight,
   PiWhatsappLogoLight,
 } from "react-icons/pi";
+import { SITE_CONFIG, buildWhatsAppUrl } from "@/data/properties";
 
 export default function PropertyActionsBar({ item }) {
   const [copied, setCopied] = useState(false);
@@ -25,10 +26,10 @@ export default function PropertyActionsBar({ item }) {
     }
   };
 
-  const handleShareWhatsApp = () => {
+  const handleWhatsAppDirect = () => {
     const currentUrl = typeof window !== "undefined" ? window.location.href : "";
     const text = [
-      `Te comparto esta propiedad de CC Inmobiliaria (MP 20):`,
+      `Hola ${SITE_CONFIG.brandName}, consulto por esta propiedad:`,
       `${item.title} (${item.code})`,
       `${item.location}`,
       `Valor: ${item.priceLabel}`,
@@ -37,11 +38,7 @@ export default function PropertyActionsBar({ item }) {
       .filter(Boolean)
       .join("\n");
 
-    window.open(
-      `https://wa.me/?text=${encodeURIComponent(text)}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    window.open(buildWhatsAppUrl(text), "_blank", "noopener,noreferrer");
   };
 
   const handleCopy = async () => {
@@ -56,8 +53,8 @@ export default function PropertyActionsBar({ item }) {
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-[#D5D0C5]">
-      <div className="flex flex-wrap items-center gap-5 text-xs font-medium">
+    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2.5 pt-3 border-t border-[#D5D0C5]">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium">
         <button
           type="button"
           onClick={openFloorplanModal}
@@ -80,11 +77,11 @@ export default function PropertyActionsBar({ item }) {
       <div className="flex flex-wrap items-center gap-4 text-xs text-[#5A5852]">
         <button
           type="button"
-          onClick={handleShareWhatsApp}
+          onClick={handleWhatsAppDirect}
           className="inline-flex items-center gap-1.5 hover:text-[#121312] transition-colors cursor-pointer"
         >
           <PiWhatsappLogoLight className="w-4 h-4 text-[var(--brand-accent)]" />
-          <span>Compartir</span>
+          <span>WhatsApp</span>
         </button>
 
         <button

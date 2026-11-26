@@ -85,5 +85,5 @@ src/
 - **Geometria y Regla Anti-Slop:**
   - Esquinas rectas a 90 grados (`rounded-none`) en tarjetas fotograficas, formularios y botones (excepto el contenedor del isotipo `rounded-xl` con `bg-white` y `object-contain` para preservar el logo cuadrado original).
   - Prohibido anidar cajas dentro de cajas (`cards-inside-cards`). Usar espacio negativo, fotografia amplia 16:10 y lineas divisorias (`border-t`, `divide-y`).
-  - Conversion directa hacia WhatsApp (`5493794602943`) con referencia, ubicacion y precio en USD.
+  - Conversion directa hacia WhatsApp (`5493795151903` / `3795 15-1903`) con referencia, ubicacion y precio en USD.
   - Politica de resenas: no inventar testimonios; mostrar exclusivamente el dato verificado de Google Maps (`4.0`, `1 reseña`) en el footer.

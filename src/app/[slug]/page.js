@@ -43,7 +43,7 @@ export default async function PropertyDetailPage({ params }) {
     <div className="min-h-[100dvh] flex flex-col bg-[#F4F1EA] text-[#121312]">
       <Navbar />
 
-      <main id="contenido-principal" className="flex-1 max-w-7xl w-full mx-auto px-4 pt-10 pb-24">
+      <main id="contenido-principal" className="flex-1 max-w-7xl w-full mx-auto px-4 pt-6 sm:pt-10 pb-16 sm:pb-24">
         <nav
           aria-label="Ruta de navegación"
           className="flex flex-wrap items-center justify-between gap-4 pb-5 mb-8 border-b border-[#D5D0C5] text-xs font-mono text-[#5A5852]"
@@ -214,25 +214,25 @@ export default async function PropertyDetailPage({ params }) {
         </section>
 
         {relatedItems.length > 0 && (
-          <section className="mt-24 pt-14 border-t border-[#D5D0C5]">
-            <div className="flex items-center justify-between gap-4 mb-10">
+          <section className="mt-16 sm:mt-24 pt-12 sm:pt-14 border-t border-[#D5D0C5]">
+            <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 mb-8 sm:mb-10">
               <h2 className="text-2xl md:text-3xl font-serif font-normal tracking-tight">
                 Más opciones en {SITE_CONFIG.brandName}
               </h2>
               <Link
                 href="/catalogo"
-                className="text-xs font-mono uppercase tracking-wider text-[var(--brand-accent)] hover:underline"
+                className="text-xs font-mono uppercase tracking-wider text-[var(--brand-accent)] hover:underline whitespace-nowrap"
               >
                 Ver todo ({PROPERTIES.length})
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
               {relatedItems.map((rel) => (
                 <Link
                   key={rel.slug}
                   href={`/${rel.slug}`}
-                  className="group grid grid-cols-1 sm:grid-cols-12 gap-5 items-center"
+                  className="group grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-5 items-center"
                 >
                   <div className="sm:col-span-5 relative aspect-[16/10] overflow-hidden rounded-none bg-black/5">
                     <Image
@@ -241,7 +241,7 @@ export default async function PropertyDetailPage({ params }) {
                       fill
                       quality={75}
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="240px"
+                      sizes="(max-width: 640px) 100vw, 240px"
                     />
                   </div>
                   <div className="sm:col-span-7 space-y-1.5">

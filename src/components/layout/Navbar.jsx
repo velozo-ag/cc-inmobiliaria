@@ -113,10 +113,10 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-[#F4F1EA]/95 backdrop-blur-md border-b border-[#D5D0C5]">
       <nav
         aria-label="Navegación principal"
-        className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between gap-4"
+        className="max-w-7xl mx-auto px-4 h-16 md:h-20 flex items-center justify-between gap-2 sm:gap-4"
       >
-        <Link href="/" className="flex items-center gap-3 shrink-0 group">
-          <div className="relative w-11 h-11 rounded-xl border border-[#D5D0C5] bg-white p-0.5 overflow-hidden shrink-0">
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 min-w-0 group">
+          <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-xl border border-[#D5D0C5] bg-white p-0.5 overflow-hidden shrink-0">
             <Image
               src={SITE_CONFIG.logoUrl}
               alt={SITE_CONFIG.brandName}
@@ -126,8 +126,8 @@ export default function Navbar() {
               sizes="44px"
             />
           </div>
-          <div className="flex items-baseline gap-2.5">
-            <span className="font-serif text-xl md:text-2xl font-medium tracking-tight text-[#121312] whitespace-nowrap">
+          <div className="flex items-baseline gap-2.5 min-w-0">
+            <span className="font-serif text-lg sm:text-xl md:text-2xl font-medium tracking-tight text-[#121312] truncate">
               {SITE_CONFIG.brandName}
             </span>
             <span className="hidden xl:inline-block text-xs text-[#5A5852] whitespace-nowrap">
@@ -136,7 +136,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium shrink-0">
           <Suspense fallback={<NavLinksFallback />}>
             <NavLinksInner />
           </Suspense>
@@ -146,14 +146,15 @@ export default function Navbar() {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[var(--brand-accent)] hover:bg-[var(--brand-accent-hover)] active:scale-[0.98] text-white text-xs font-medium tracking-wide transition-all duration-200 whitespace-nowrap shrink-0"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-none bg-[var(--brand-accent)] hover:bg-[var(--brand-accent-hover)] active:scale-[0.98] text-white text-[11px] sm:text-xs font-medium tracking-wide transition-all duration-200 whitespace-nowrap shrink-0"
         >
-          <span>{SITE_CONFIG.primaryCtaLabel}</span>
+          <span className="hidden min-[380px]:inline">{SITE_CONFIG.primaryCtaLabel}</span>
+          <span className="min-[380px]:hidden">Visitar</span>
           <PiArrowUpRight className="w-3.5 h-3.5 shrink-0" />
         </a>
       </nav>
 
-      <div className="flex md:hidden items-center gap-5 px-4 py-2.5 border-t border-[#D5D0C5] overflow-x-auto text-xs font-medium bg-[#ECE8DF]">
+      <div className="flex md:hidden items-center justify-between sm:justify-start gap-4 sm:gap-6 px-4 py-2.5 border-t border-[#D5D0C5] overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden text-xs font-medium bg-[#ECE8DF]">
         <Suspense fallback={<NavLinksFallback mobile />}>
           <NavLinksInner mobile />
         </Suspense>

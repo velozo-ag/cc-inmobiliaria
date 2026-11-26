@@ -109,7 +109,7 @@ export default function CatalogClient({ initialFilters = {} }) {
     <main id="contenido-principal" className="flex-1 max-w-7xl w-full mx-auto px-4 pt-8 pb-24">
       <div className="pb-6 mb-10 border-b border-[#D5D0C5] space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3">
-          <div className="lg:col-span-4 space-y-1">
+          <div className="sm:col-span-2 lg:col-span-4 space-y-1">
             <label htmlFor="catalog-search" className="block text-[11px] font-mono text-[#5A5852]">
               Código, calle o barrio
             </label>
@@ -330,11 +330,11 @@ export default function CatalogClient({ initialFilters = {} }) {
                     />
                   </Link>
 
-                  <div className="flex items-center justify-between border-b border-[#D5D0C5] pb-2.5 text-xs">
+                  <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-[#D5D0C5] pb-2.5 text-xs">
                     <span className="inline-flex items-center gap-1.5 font-mono text-[#5A5852]">
                       {item.pinned && (
                         <PiStarFill
-                          className="w-3.5 h-3.5 text-amber-500"
+                          className="w-3.5 h-3.5 text-amber-500 shrink-0"
                           aria-label="Propiedad destacada"
                         />
                       )}
@@ -372,23 +372,23 @@ export default function CatalogClient({ initialFilters = {} }) {
                     <span>{item.tertiaryMetric}</span>
                   </div>
 
-                  <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
                     <a
                       href={itemWaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-xs font-medium text-[#5A5852] hover:text-[#121312] hover:underline"
                     >
-                      <PiWhatsappLogoLight className="w-4 h-4" />
+                      <PiWhatsappLogoLight className="w-4 h-4 shrink-0" />
                       <span>WhatsApp directo</span>
                     </a>
 
                     <Link
                       href={`/${item.slug}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[var(--brand-accent)] hover:bg-[var(--brand-accent-hover)] active:scale-[0.98] text-white text-xs font-medium transition-all duration-200"
+                      className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-none bg-[var(--brand-accent)] hover:bg-[var(--brand-accent-hover)] active:scale-[0.98] text-white text-xs font-medium transition-all duration-200 whitespace-nowrap"
                     >
                       <span>{SITE_CONFIG.detailCtaLabel}</span>
-                      <PiArrowUpRight className="w-3.5 h-3.5" />
+                      <PiArrowUpRight className="w-3.5 h-3.5 shrink-0" />
                     </Link>
                   </div>
                 </div>
@@ -398,8 +398,8 @@ export default function CatalogClient({ initialFilters = {} }) {
         </div>
       )}
 
-      <section className="mt-20 border border-[#D5D0C5] bg-[#ECE8DF] p-7 md:p-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <section className="mt-16 sm:mt-20 border border-[#D5D0C5] bg-[#ECE8DF] p-5 sm:p-7 md:p-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
           <div className="lg:col-span-5 space-y-2">
             <span className="text-xs font-mono uppercase tracking-wider text-[var(--brand-accent)]">
               Acceso anticipado a ingresos
@@ -422,13 +422,13 @@ export default function CatalogClient({ initialFilters = {} }) {
               value={alertWish}
               onChange={(e) => setAlertWish(e.target.value)}
               placeholder="Ej: Depto 2 dormitorios con cochera en B° Libertad hasta USD 120.000"
-              className="flex-1 h-12 px-4 rounded-none border border-[#D5D0C5] bg-white text-sm text-[#121312] placeholder:text-[#5A5852]/70 focus:outline-none focus:border-[var(--brand-accent)]"
+              className="flex-1 min-w-0 h-12 px-4 rounded-none border border-[#D5D0C5] bg-white text-sm text-[#121312] placeholder:text-[#5A5852]/70 focus:outline-none focus:border-[var(--brand-accent)]"
             />
             <button
               type="submit"
-              className="h-12 px-6 rounded-none bg-[#121312] hover:bg-[var(--brand-accent)] active:scale-[0.98] text-white text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shrink-0 whitespace-nowrap"
+              className="h-12 px-5 sm:px-6 w-full sm:w-auto rounded-none bg-[#121312] hover:bg-[var(--brand-accent)] active:scale-[0.98] text-white text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shrink-0 whitespace-nowrap"
             >
-              <PiWhatsappLogoLight className="w-4 h-4" />
+              <PiWhatsappLogoLight className="w-4 h-4 shrink-0" />
               <span>Avisarme por WhatsApp</span>
             </button>
           </form>
