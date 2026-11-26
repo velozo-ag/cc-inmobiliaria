@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
+
+:root {
+  --background: #F4F1EA;
+  --surface: #ECE8DF;
+  --foreground: #121312;
+  --muted: #5A5852;
+  --border: #D5D0C5;
+  --brand-accent: #A80038;
+  --brand-accent-hover: #7F002A;
+  --brand-accent-soft: #FCE7EE;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-jakarta), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.ease-editorial {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes heroPan {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.045);
+  }
+}
+
+.animate-hero-pan {
+  animation: heroPan 18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.maplibregl-ctrl-group {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #D5D0C5 !important;
+}
+
+.maplibregl-ctrl-group button {
+  border-radius: 0 !important;
+}
+
+.maplibregl-ctrl-attrib {
+  font-size: 10px !important;
+  background: rgba(244, 241, 234, 0.85) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-hero-pan {
+    animation: none !important;
+    transform: none !important;
+  }
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
