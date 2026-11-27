@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import { SITE_CONFIG } from "@/data/properties";
+import { Analytics } from "@vercel/analytics/next";
 
 const jakarta = localFont({
   src: "./fonts/PlusJakartaSans-Variable.woff2",
@@ -69,6 +70,7 @@ export default function RootLayout({ children }) {
         </a>
         <div className="paper-grain" aria-hidden="true" />
         {children}
+        <Analytics />
       </body>
     </html>
   );
